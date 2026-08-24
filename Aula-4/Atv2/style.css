@@ -1,0 +1,119 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #071013;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    color: #ffeedb;
+}
+
+.main-title{
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+    display: inline-block;
+    font-size: 20px;
+}
+
+.months-sheet {
+    background-color: #595959;
+    border-radius: 15px;
+    padding: 15px;
+    width: fit-content;
+    height: fit-content;
+    box-shadow: 0 0 12px #595959;
+}
+.months-rows {
+    padding-bottom: 20px;
+}
+
+.month-label {
+    color: #ffeedb;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.row-div, .row-header {
+    display: grid;
+    grid-template-columns: 100px 200px 200px 200px;
+    align-items: center;
+    justify-items: center;
+    border-radius: 20px;
+    padding-left: 15px;
+    gap: 30px;
+}
+
+.row-div:nth-child(even) {
+    background-color: #44434387;
+}
+
+.row-div:nth-child(odd) {
+    background-color: #27272779;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
+
+input[type="number"] {
+    -webkit-appearance: textfield !important;
+    -moz-appearance: textfield !important;
+    appearance: textfield !important;
+}
+
+input {
+    border-radius: 5px;
+    padding: 8px;
+    border: none;
+    box-sizing: border-box;
+    background-color: transparent;
+    height: fit-content;
+    width: 100%;
+    color: #ffeedb;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    text-align: center;
+}
+
+input:focus {
+    outline: none;
+}
+
+.btn-div {
+    display: flex;
+    justify-content: center;
+}
+
+.total-div {
+    display: flex;
+    justify-content: space-between;
+    line-height: 0.1;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 13px;
+}
+
+button {
+    display: block;
+    font-size: 15px;
+    margin: 30px 0 30px 0;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    cursor: pointer;
+    background-color: #112830;
+    color: aliceblue;
+}
+
+button:hover {
+    background-color: #ffeedb;
+    color: #071013;
+}

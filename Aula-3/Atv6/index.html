@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="atv6.js"></script>
+<link rel="stylesheet" href="style.css">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <select class="sort-select" id="products-sort">
+        <option value="default">Padrao</option>
+        <option value="name">Nome (A-Z)</option>
+        <option value="name-desc">Nome (Z-A)</option>
+        <option value="price">Preco (Menor → Maior)</option>
+        <option value="price-desc">Preco (Maior → Menor)</option>
+    </select>
+    <div class="products-grid" id="products-grid"></div>
+    <div class="cart-checkout">
+        <div class="checkout-value">
+            <h3>Subtotal:</h3>
+            <h2 id="subtotalText">R$ 0</h2>
+        </div>
+        <div class="checkout-value">
+            <h3>Desconto:</h3>
+            <h2 id="discountText">0%</h2>
+        </div>
+        <div class="checkout-value">
+            <h3>Total:</h3>
+            <h2 id="totalText">R$ 0</h2>
+        </div>
+    </div>
+</body>
+</html>

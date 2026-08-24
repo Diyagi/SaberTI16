@@ -1,0 +1,73 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #bbcde5;
+}
+
+h1 {
+    text-align: center;
+    color: #1c5d99;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    border-radius: 5px;
+    padding: 8px;
+    border: 1px solid gray;
+    box-sizing: border-box;
+    background-color: #f4f9ffe2
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    box-shadow: 0 0 8px rgb(0, 123, 255);
+}
+
+label {
+    font-weight: bold;
+    color: #333;
+    display: block;
+}
+
+.formMember {
+    padding: 20px 0 0 0;
+    width: 80dvw;
+    max-width: 600px;
+}
+
+button {
+    font-size: 15px;
+    margin: 10px 0 0 0;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    cursor: pointer;
+}
+
+.btnDiv {
+    justify-content: left;
+}
+
+.btnSubmit {
+    background-color: #1c5d99;
+    color: aliceblue;
+}
+
+.btnSubmit:hover {
+    background-color: #0e3860;
+}
+
+.btnClear {
+    background-color: gray;
+    color: aliceblue;
+}
+
+.btnClear:hover {
+    background-color: rgb(230, 40, 40);
+}

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-bs-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="module" src="../js/menu.js"></script>
+  <link rel="stylesheet" href="./styles/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+  integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+  crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css">
+  
+  <title>Menu</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-sm bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">SCP</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Cadastros
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item pagina-link" href="#categories">Categoria</a></li>
+              <li><a class="dropdown-item pagina-link" href="#clients">Clientes</a></li>
+              <li><a class="dropdown-item pagina-link" href="#products">Produtos</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Manutenção
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item pagina-link" href="#users">Usuarios</a></li>
+            </ul>
+          </li>
+        </ul>
+        <!-- User area -->
+        <div class="d-flex align-items-center gap-2">
+          <span class="navbar-text" id="loggedInUserName">
+            Username
+          </span>
+          
+          <button class="btn btn-outline-danger"
+          type="button"
+          id="logoutButton">
+          Sair
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="view-content" id="viewContent"></div>
+
+<div class="modal fade" id="confirmationModal" tabindex="-1"
+aria-labelledby="confirmationModalLabel" aria-hidden="true">
+
+<div class="modal-dialog modal-dialog-centered">
+  <div class="modal-content">
+    
+    <div class="modal-header">
+      <h5 class="modal-title" id="confirmationModalLabel">
+        Confirmar Exclusao
+      </h5>
+      
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+      </button>
+    </div>
+    
+    <div class="modal-body" id="confirmationModalBody">
+      Tem certeza que deseja deletar este item?
+    </div>
+    
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+        Cancelar
+      </button>
+      
+      <button type="button" class="btn btn-danger" id="confirmationModalConfirm">
+        Deletar
+      </button>
+    </div>
+    
+  </div>
+</div>
+</div>
+</body>
+
+</html>

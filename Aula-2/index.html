@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="style.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+</head>
+<body>
+    <div class="mainForm">
+        <h1>Cadstro de Cliente</h2>
+        
+        <div class="formMember">
+            <label for="clientName">Nome Completo:</label>
+            <input type="text" name="clientName" id="clientName" placeholder="Digite o nome do cliente">
+        </div>
+        
+        <div class="formMember">
+            <label for="clientCPF">CPF:</label>
+            <input type="number" name="clientCPF" id="clientCPF" placeholder="Digite o CPF do cliente">
+        </div>
+        
+        <div class="formMember">
+            <label for="clientEmail">Email:</label>
+            <input type="email" name="clientEmail" id="clientEmail" placeholder="Digite o Email do cliente">
+        </div>
+        
+        <div class="formMember">
+            <label for="clientPhone">Telefone:</label>
+            <input type="tel" name="clientPhone" id="clientPhone" placeholder="Digite o telefone do cliente">
+        </div>
+        
+        <div class="formMember">
+            <label for="clientBirthday">Data de Nascimento:</label>
+            <input type="date" name="clientBirthday" id="clientBirthday" placeholder="Data de nascimento do cliente">
+        </div>
+        
+        <div class="formMember">
+            <label for="clientAddress">Endereço:</label>
+            <input type="text" name="clientAddress" id="clientAddress" placeholder="Digite o endereço do cliente">
+        </div>
+        
+        <div class="formMember">
+            <label for="clientCity">Cidade:</label>
+            <input type="text" name="clientCity" id="clientCity" placeholder="Digite a cidade do cliente">
+        </div>
+        
+        <div class="formMember">
+            <label for="clientEstate">Estado:</label>
+            <select name="clientEstate" id="clientEstate">
+                <option value="">-- Selecione --</option>
+                <option value="stPR">Paraná</option>
+                <option value="stSP">São Paulo</option>
+                <option value="stRJ">Rio de Janeiro</option>
+                <option value="stRS">Rio Grande do Sul</option>
+            </select>
+        </div>
+        
+        <div class="formMember">
+            <label for="clientType">Tipo de cliente:</label>
+            <select name="clientType" id="clientType">
+                <option value="">-- Selecione --</option>
+                <option value="tipoA">Tipo A</option>
+                <option value="tipoB">Tipo B</option>
+                <option value="tipoC">Tipo C</option>
+            </select>
+        </div>
+        
+        <div class="formMember">
+            <label for="clientObs">Observações:</label>
+            <textarea name="clientObs" id="clientObs" placeholder="Observções..." rows="5" cols="33"></textarea>
+        </div>
+        <div class="btnDiv">
+            <button class="btnSubmit">Cadastrar</button>
+            <Button class="btnClear">Limpar</Button>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<link rel="stylesheet" href="style.css">
+
+<script>
+    function getCircleArea() {
+        const radius = document.getElementById("raioInput").value;
+        const area = Math.PI * Math.pow(radius, 2);
+        document.getElementById("circleArea").textContent = area
+        document.getElementById("circleAreaIs").textContent = "Area do circule é:"
+    }
+</script>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Area de Circulo</title>
+</head>
+
+<body>
+    <div class="mainElements">
+        <h1>Calculo Area de Circulo</h1>
+
+        <label for="raioInput">Raio</label>
+        <input type="number" name="raioInput" id="raioInput">
+
+        <button onclick="getCircleArea()">Calcular</button>
+
+        <h2 id="circleAreaIs"></h2>
+        <h2 id="circleArea"></h2>
+    </div>
+</body>
+</html>

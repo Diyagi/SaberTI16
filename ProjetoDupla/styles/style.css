@@ -1,0 +1,41 @@
+.table-header {
+    display: flex;
+    margin-top: 20px;
+}
+
+.table-header button{
+    margin-left: auto;
+}
+
+.view-content {
+    margin: 20px;
+}
+
+table {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.row-edit, .row-delete{
+    border: none;
+    background-color: transparent;
+}
+
+.column-center {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.column-left {
+    text-align: left;
+    vertical-align: middle;
+}
+
+.options-div {
+    display: flex;
+    justify-content: center;
+}
+
+.btn-image {
+    pointer-events: none;
+}
