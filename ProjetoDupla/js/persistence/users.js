@@ -20,6 +20,12 @@ export async function getByAuth(email, pass) {
         user.password === passwordHash) ?? null;
 }
 
+export async function getByEmail(email) {
+    const users = getAll();
+    
+    return users.find(user => user.email === email) ?? null;
+}
+
 export async function create(user) {
     const users = getAll();
     

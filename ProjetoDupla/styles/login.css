@@ -62,6 +62,10 @@ input:focus {
     margin-bottom: 25px;
 }
 
+.login-input-div:has(#newPass) {
+    margin-bottom: 25px;
+}
+
 .input-label {
     margin-bottom: 5px;
     font-weight: bold;

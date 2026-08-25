@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<script type="module" src="./js/login.js"></script>
+<script type="module" src="./js/passRecover.js"></script>
 <script type="module" src="./js/commands.js"></script>
 <link rel="stylesheet" href="./styles/style.css">
 <link rel="stylesheet" href="./styles/login.css">
@@ -8,24 +8,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Trocar Senha</title>
 </head>
 <body>
-    <form class="login-form" id="loginForm">
-        <h1 class="form-header">Login</h1>
+    <form class="login-form" id="passRecForm">
+        <h1 class="form-header">Trocar Senha</h1>
         <div class="login-input-div">
             <i class="fa-solid fa-envelope input-icon"></i>
             <input type="email" id="userMail" name="userMail" placeholder="Email">
         </div>
         <div class="login-input-div">
             <i class="fa-solid fa-key input-icon"></i>
-            <input type="password" id="userPass" name="userPass" placeholder="Senha">
+            <input type="password" id="newPass" name="newPass" placeholder="Nova Senha">
         </div>
-        <a class="forgotpass" href="./pass-recover.html">Esqueceu sua senha?</a>
-
+        <div class="login-input-div">
+            <i class="fa-solid fa-key input-icon"></i>
+            <input type="password" id="newPassConfirm" name="newPassConfirm" placeholder="Confirmar Nova Senha">
+        </div>
         
         <div class="btn-div">
-            <button type="submit">Entrar</button>
+            <button type="submit">Trocar</button>
         </div>
     </form>
 </body>
