@@ -1,0 +1,31 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+}
+
+.mainElements {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80dvw;
+    height: fit-content;
+    background-color: #bbcde5;
+    border-radius: 15px;
+    padding-bottom: 25px;
+    padding-top: 25px;
+}
+
+form {
+    width: 80%;
+}
+
+.submitResult {
+    text-align: center;
+    color: #2f3484;
+    display: inline-block;
+    height: 20px;
+}
