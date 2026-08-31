@@ -1,0 +1,27 @@
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #eaf3ff, #f7f9fc);
+}
+
+.tabuada-card {
+  max-width: 640px;
+  background-color: #fff;
+  border: 1px solid #dce5f0;
+  border-radius: 1rem;
+}
+
+.resultado {
+  border-top: 1px solid #e9ecef;
+  padding-top: 1.5rem;
+}
+
+.linha-tabuada {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.05rem;
+}
+
+.linha-tabuada strong {
+  color: #0d6efd;
+}

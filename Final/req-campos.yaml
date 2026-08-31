@@ -1,0 +1,41 @@
+Login:
+    - Usuario
+    - Senha
+
+Usuarios:
+    - Nome*
+    - Usuario*
+    - Senha (Hash)*
+
+Clientes:
+    - Nome*
+    - CPF/CNPJ*
+    - Tipo (Fisica/Juridica)
+    - Telefone
+    - Email
+
+Categorias:
+    - Descricao*
+
+Produtos:
+    - Descricao*
+    - Valor*
+    - Categoria (FK)*
+    - Status*
+    - Observacao
+    - Data de Cadastro
+
+Orcamentos:
+    - Cliente (FK)*
+    - Vendedor (FK)*
+    - Data Criacao
+    - Validade (Dias)*
+    - Data Finalizacao (Venda Finalizada)
+    - Valor Total
+
+OrcamentosItems:
+    - Produto (FK)
+    - Descricao
+    - Quantidade
+    - Valor Uni.
+    - Valor Total

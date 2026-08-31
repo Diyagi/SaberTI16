@@ -1,0 +1,17 @@
+Login:
+    Pagina de login simples, campos de input e botao de logar em forms.
+    Senha sera salva em hash com salt.
+    Em caso de credenciais incorretas uma notificacao no proprio forms sera apresentada.
+
+Menu:
+    Talvez uma implementacao em SPA, cadastro de produtos, categorias, usuarios e clientes podera usar modais.
+    Menu Lateral.
+
+Orcamento:
+    Parte de criacao e edicao de orcamentos em uma pagina independente.
+    Visualizacao em uma modal com atalhos para produto e cliente.
+    Por padrao mostrar apenas orcamentos em aberto (sem data de finalizacao e data de criacao + validade > data atual)
+    Utilizar check box para mostrar orcamentos vencidos e finalizados.
+    Em caso de orcamento vencido, disponibilizar opcao para reabrir sem recalculo dos itens e reabrir com recalculo
+    Recalculo seria atualizar o valor unitario dos items do orcamento ao valor atual na DB.
+    
