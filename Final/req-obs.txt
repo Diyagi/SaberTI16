@@ -15,3 +15,7 @@ Orcamento:
     Em caso de orcamento vencido, disponibilizar opcao para reabrir sem recalculo dos itens e reabrir com recalculo
     Recalculo seria atualizar o valor unitario dos items do orcamento ao valor atual na DB.
     
+Usuarios: 
+    Supabase nao fornece endpoints crud para usuarios, a solucao e usar edge functions
+    para criar uma API que forneca essa funcionalidade a usuarios especificos (admin e talvez owner)
+    

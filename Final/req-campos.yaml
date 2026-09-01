@@ -1,10 +1,10 @@
 Login:
-    - Usuario
+    - Email
     - Senha
 
 Usuarios:
     - Nome*
-    - Usuario*
+    - Email*
     - Senha (Hash)*
 
 Clientes:
