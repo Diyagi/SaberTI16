@@ -13,7 +13,12 @@ const routes = {
     },
 
     users: {
-        html: "./views/users.html",
+        html: "./views/users/users.html",
+        js: "./pages/users.js"
+    },
+
+    userEdit: {
+        html: "./views/users/userEdit.html",
         js: "./pages/users.js"
     },
     
