@@ -1,7 +1,8 @@
-import * as dbUser from "../soupabase/user.js"
+import * as dbUser from "../../soupabase/user.js"
+import { confirmModal } from "../../../../components/confirmationModal.js";
 
 export async function init() {
-    //loadUsers();
+    loadUsers();
 }
 
 async function loadUsers() {
@@ -33,6 +34,7 @@ async function loadUsers() {
                 <button 
                     class="btn btn-sm btn-danger delete-user"
                     data-id="${user.id}"
+                    data-name="${profile?.full_name ?? "Desconhecido"}"
                     title="Excluir">
                     <i class="bi bi-trash"></i>
                 </button>
@@ -41,21 +43,41 @@ async function loadUsers() {
         
         tableBody.appendChild(row);
     });
+
+    tableBody.addEventListener("click", onTableClick);
+}
+
+function onTableClick(event) {
+    const target = event.target;
+    
+    const editBtn = target.closest(".edit-user");
+    if (editBtn) {
+        window.location.href = `/menu/users/edit?userId=${editBtn.dataset.id}`;
+        return;
+    }
+
+    const deleteBtn = target.closest(".delete-user" );
+    if (deleteBtn) {
+        confirmModal({
+        title: "Deletar Usuario",
+        message: `Tem certeza que deseja deletar o usuario <b>${deleteBtn.dataset.name}</b>?`,
+        confirmText: "Deletar",
+        onConfirm: () => {
+            console.log(`Delete ${deleteBtn.dataset.id}`)
+        }});
+        return;
+    }
 }
 
 function getFormatedRole(role) {
     switch (role) {
         case 'owner':
             return "Dono";
-            break;
         case 'admin':
             return "Admin";
-            break;
         case 'user':
             return "Usuario";
-            break;
         default:
             return "";
-            break;
     }
 }
