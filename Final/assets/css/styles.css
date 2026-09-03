@@ -146,6 +146,7 @@ body {
 .app-view {
   flex: 1;
   padding: 1.5rem;
+  margin: 20px;
 }
 
 .dashboard-view {

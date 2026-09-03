@@ -1,6 +1,11 @@
 import { supabase } from "./supaCliente.js";
 
-export function registerUser() {}
+export async function createUser(data) {
+	return await supabase.functions.invoke(`supaUser/users`, {
+		body: { ...data },
+		method: 'POST'
+	});
+}
 
 export async function authUser(email, password) {
 	return await supabase.auth.signInWithPassword({
@@ -10,19 +15,75 @@ export async function authUser(email, password) {
 }
 
 export async function getLoggedUser() {
-	return supabase.auth.getUser();
+	// Get the authenticated user
+	const {
+		data: { user },
+		error: authError,
+	} = await supabase.auth.getUser();
+	
+	if (authError || !user) {
+		console.error("Error fetching auth user:", authError?.message);
+		
+		return {
+			user: null,
+			error: authError,
+		};
+	}
+	
+	// Get the user's profile
+	const { data: profile, error: profileError } = await supabase
+	.from("profiles")
+	.select("*")
+	.eq("id", user.id)
+	.single();
+	
+	if (profileError || !profile) {
+		console.error(
+			"Error fetching profile data:",
+			profileError?.message
+		);
+		
+		return {
+			user: null,
+			error: profileError,
+		};
+	}
+	
+	return {
+		user: {
+			id: user.id,
+			email: user.email,
+			username: profile.username,
+			fullname: profile.full_name,
+			role: profile.user_role,
+		},
+		error: null,
+	};
 }
 
 export async function getUser(userId) {
-	return await supabase.functions.invoke(`getUsers?userId=${userId}`);
+	return await supabase.functions.invoke(`supaUser/users/${userId}`, {method: 'GET'});
 }
 
 export async function getUsers() {
-	return await supabase.functions.invoke("getUsers");
+	return await supabase.functions.invoke("supaUser/users", {method: 'GET'});
 }
 
-export async function updateUser(data) {
-	return await supabase.functions.invoke("updateUser", {
-	  body: { ...data }
+export async function updateUser(userId, data) {
+	return await supabase.functions.invoke(`supaUser/users/${userId}`, {
+		body: { ...data },
+		method: 'PATCH'
 	});
+}
+
+export async function deleteUser(userId) {
+	return await supabase.functions.invoke(`supaUser/users/${userId}`, { method: 'DELETE' });
+}
+
+export async function checkUsernameAva(username) {
+	return await supabase.functions.invoke(`checkAvailability/username?username=${encodeURIComponent(username)}`, {method: 'GET'});
+}
+
+export async function checkEmailAva(email) {
+	return await supabase.functions.invoke(`checkAvailability/email?email=${encodeURIComponent(email)}`, {method: 'GET'});
 }

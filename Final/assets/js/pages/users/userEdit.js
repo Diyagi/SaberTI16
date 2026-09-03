@@ -40,7 +40,6 @@ async function onFormSubmit(event) {
 	const data = Object.fromEntries(formData.entries());
 
     const newData = {
-        userId: userData.user.id,
         email: data.email,
         username: data.username,
         full_name: data.fullName,
@@ -51,7 +50,7 @@ async function onFormSubmit(event) {
         newData.password = data.password;
     }
 
-    const { _, error} = await dbUser.updateUser(newData);
+    const { _, error} = await dbUser.updateUser(userData.user.id, newData);
 
     if (error) {
         console.log(error)

@@ -1,7 +1,7 @@
 import * as dbUser from "./soupabase/user.js";
 
 const {
-	data: { user },
+	user,
 	error,
 } = await dbUser.getLoggedUser();
 
@@ -10,4 +10,5 @@ if (error || !user) {
 	window.location.href = "/login";
 }
 
-console.log("Logged in user: ", user.email);
+
+console.log("Logged in user:", user.email);

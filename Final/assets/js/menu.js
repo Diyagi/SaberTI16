@@ -11,6 +11,7 @@ const routeTitles = {
   categories: "Categorias",
   clients: "Clientes",
   useredit: "Editar usuário",
+  useradd: "Adicionar usuário",
   users: "Usuários"
 };
 

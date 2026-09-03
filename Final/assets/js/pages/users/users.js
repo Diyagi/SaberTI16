@@ -43,7 +43,7 @@ async function loadUsers() {
         
         tableBody.appendChild(row);
     });
-
+    
     tableBody.addEventListener("click", onTableClick);
 }
 
@@ -55,29 +55,30 @@ function onTableClick(event) {
         window.location.href = `/menu/users/edit?userId=${editBtn.dataset.id}`;
         return;
     }
-
+    
     const deleteBtn = target.closest(".delete-user" );
     if (deleteBtn) {
         confirmModal({
-        title: "Deletar Usuario",
-        message: `Tem certeza que deseja deletar o usuario <b>${deleteBtn.dataset.name}</b>?`,
-        confirmText: "Deletar",
-        onConfirm: () => {
-            console.log(`Delete ${deleteBtn.dataset.id}`)
-        }});
+            title: "Deletar Usuario",
+            message: `Tem certeza que deseja deletar o usuario <b>${deleteBtn.dataset.name}</b>?`,
+            confirmText: "Deletar",
+            onConfirm: () => {
+                dbUser.deleteUser(deleteBtn.dataset.id);
+            }
+        });
         return;
+        }
     }
-}
-
-function getFormatedRole(role) {
-    switch (role) {
-        case 'owner':
+    
+    function getFormatedRole(role) {
+        switch (role) {
+            case 'owner':
             return "Dono";
-        case 'admin':
+            case 'admin':
             return "Admin";
-        case 'user':
+            case 'user':
             return "Usuario";
-        default:
+            default:
             return "";
+        }
     }
-}

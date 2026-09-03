@@ -4,6 +4,7 @@ const routes = {
     products: { path: "products", html: "./views/products.html", js: "./pages/products.js" },
     users: { path: "users", html: "./views/users/users.html", js: "./pages/users/users.js" },
     useredit: { path: "users/edit", html: "./views/users/userEdit.html", js: "./pages/users/userEdit.js" },
+    useradd: { path: "users/add", html: "./views/users/userAdd.html", js: "./pages/users/userAdd.js" },
     clients: { path: "clients", html: "./views/clients.html", js: "./pages/clients.js" }
 };
 
