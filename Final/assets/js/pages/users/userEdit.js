@@ -4,10 +4,11 @@ let userData;
 
 export async function init() {
 	const editForm = document.querySelector("#editUserForm");
-	userData = await loadUserData();
-    populateInputs();
-
 	editForm.addEventListener("submit", onFormSubmit);
+
+	userData = await loadUserData();
+    await populateRoleSelect();
+    await populateInputs();
 }
 
 async function loadUserData() {
@@ -59,4 +60,34 @@ async function onFormSubmit(event) {
     }
 
     alert("Usuario Atualizado!");
+}
+
+async function populateRoleSelect() {
+    const roleSelect = document.querySelector('#userRole');
+    
+    const { user, error } = await dbUser.getLoggedUser();
+    
+    if (error) {
+        console.log(error);
+        return;
+    }
+    
+    if (!roleSelect || !user) {
+        return;
+    }
+    
+    if (user.role === "owner") {
+        roleSelect.innerHTML = `
+            <option value="" selected disabled> Selecione uma função </option>
+            <option value="owner">Dono</option>
+            <option value="admin">Admin</option>
+            <option value="user">Usuário</option>
+        `;
+    } else if (user.role === "admin") {
+        roleSelect.innerHTML = `
+            <option value="user" selected>Usuário</option>
+        `;
+        
+        roleSelect.disabled = true;
+    }
 }

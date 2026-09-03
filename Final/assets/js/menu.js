@@ -9,6 +9,8 @@ const routeTitles = {
   quotes: "Orçamentos",
   products: "Produtos",
   categories: "Categorias",
+  categoriesedit: "Editar Categoria",
+  categoriesadd: "Adicionar Categoria",
   clients: "Clientes",
   useredit: "Editar usuário",
   useradd: "Adicionar usuário",

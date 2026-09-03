@@ -1,6 +1,8 @@
 const routes = {
-    quotes: { path: "", html: "./views/quotes.html" },
-    categories: { path: "categories", html: "./views/categories.html", js: "./pages/categories.js" },
+    quotes: { path: "quotes", html: "./views/quotes.html" },
+    categories: { path: "categories", html: "./views/categories/categories.html", js: "./pages/categories/categories.js" },
+    categoriesedit: { path: "categories/edit", html: "./views/categories/categoryForm.html", js: "./pages/categories/categoryForm.js" },
+    categoriesadd: { path: "categories/add", html: "./views/categories/categoryForm.html", js: "./pages/categories/categoryForm.js" },
     products: { path: "products", html: "./views/products.html", js: "./pages/products.js" },
     users: { path: "users", html: "./views/users/users.html", js: "./pages/users/users.js" },
     useredit: { path: "users/edit", html: "./views/users/userEdit.html", js: "./pages/users/userEdit.js" },

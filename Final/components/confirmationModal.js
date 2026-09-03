@@ -3,6 +3,7 @@ export function confirmModal({
 	message = "Tem Certeza?",
 	confirmText = "Confirmar",
 	confirmClass = "btn-danger",
+	loadingText = "",
 	onConfirm,
 }) {
 	const modalElement = document.getElementById("confirmationModal");
@@ -25,12 +26,19 @@ export function confirmModal({
 	// Set the new callback
 	confirmButton.onclick = async function () {
 		confirmButton.disabled = true;
+		const confirmBtnInner = confirmButton.innerHTML;
+
+		if (loadingText) {
+			confirmButton.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      			${loadingText}...`;
+		}
 
 		try {
 			await onConfirm?.();
 
 			bootstrap.Modal.getInstance(modalElement).hide();
 		} finally {
+			confirmButton.innerHTML = confirmBtnInner;
 			confirmButton.disabled = false;
 		}
 	};

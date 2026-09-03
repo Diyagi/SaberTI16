@@ -1,20 +1,21 @@
-import * as dbUser from "../../soupabase/user.js"
+import * as dbUser from "../../soupabase/user.js";
 import { confirmModal } from "../../../../components/confirmationModal.js";
 
 export async function init() {
-    loadUsers();
+	loadUsers();
 }
 
 async function loadUsers() {
-    const { data, error } = await dbUser.getUsers();
-    const tableBody = document.getElementById("usersTableBody");
-    
-    data.users.forEach(user => {
-        const profile = user.profile;
-        
-        const row = document.createElement("tr");
-        
-        row.innerHTML = `
+	const { data, error } = await dbUser.getUsers();
+	const tableBody = document.getElementById("usersTableBody");
+    tableBody.innerHTML = '';
+
+	data.users.forEach((user) => {
+		const profile = user.profile;
+
+		const row = document.createElement("tr");
+
+		row.innerHTML = `
             <td>${user.email}</td>
             <td>${profile?.username ?? ""}</td>
             <td>${profile?.full_name ?? ""}</td>
@@ -40,45 +41,45 @@ async function loadUsers() {
                 </button>
             </td>
         `;
-        
-        tableBody.appendChild(row);
-    });
-    
-    tableBody.addEventListener("click", onTableClick);
+
+		tableBody.appendChild(row);
+	});
+
+	tableBody.addEventListener("click", onTableClick);
 }
 
 function onTableClick(event) {
-    const target = event.target;
-    
-    const editBtn = target.closest(".edit-user");
-    if (editBtn) {
-        window.location.href = `/menu/users/edit?userId=${editBtn.dataset.id}`;
-        return;
-    }
-    
-    const deleteBtn = target.closest(".delete-user" );
-    if (deleteBtn) {
-        confirmModal({
-            title: "Deletar Usuario",
-            message: `Tem certeza que deseja deletar o usuario <b>${deleteBtn.dataset.name}</b>?`,
-            confirmText: "Deletar",
-            onConfirm: () => {
-                dbUser.deleteUser(deleteBtn.dataset.id);
-            }
-        });
-        return;
-        }
-    }
-    
-    function getFormatedRole(role) {
-        switch (role) {
-            case 'owner':
-            return "Dono";
-            case 'admin':
-            return "Admin";
-            case 'user':
-            return "Usuario";
-            default:
-            return "";
-        }
-    }
+	const target = event.target;
+
+	const editBtn = target.closest(".edit-user");
+	if (editBtn) {
+		window.location.href = `/menu/users/edit?userId=${editBtn.dataset.id}`;
+		return;
+	}
+
+	const deleteBtn = target.closest(".delete-user");
+	if (deleteBtn) {
+		confirmModal({
+			title: "Deletar Usuario",
+			message: `Tem certeza que deseja deletar o usuario <b>${deleteBtn.dataset.name}</b>?`,
+			confirmText: "Deletar",
+			onConfirm: async () => {
+				await dbUser.deleteUser(deleteBtn.dataset.id);
+			},
+		});
+		return;
+	}
+}
+
+function getFormatedRole(role) {
+	switch (role) {
+		case "owner":
+			return "Dono";
+		case "admin":
+			return "Admin";
+		case "user":
+			return "Usuario";
+		default:
+			return "";
+	}
+}

@@ -163,9 +163,9 @@ async function onFormSubmit(event) {
         addUserForm.reset();
         
         // If you want to redirect:
-        // setTimeout(() => {
-            //     window.location.href = '/users';
-        // }, 1000);
+        setTimeout(() => {
+                window.location.href = '/menu/users';
+        }, 1000);
         
     } catch (error) {
         console.error(error);
