@@ -1,11 +1,11 @@
-<div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
-            <p class="text-muted mb-0" id="categoryId"></p>
-        </div>
+<section class="form-page">
+    <div class="form-page-header">
+        <p class="view-kicker">Cadastros</p>
+        <h2 class="view-title">Categoria</h2>
+        <p class="form-record-id" id="categoryId"></p>
     </div>
 
-    <form id="categoryForm">
+    <form id="categoryForm" class="form-card" novalidate>
         <!-- Description -->
         <div class="mb-3">
             <label for="categoryDesc" class="form-label">Descrição</label>
@@ -14,6 +14,7 @@
                 class="form-control"
                 id="categoryDesc"
                 name="categoryDesc"
+                required
             >
         </div>
 
@@ -35,4 +36,4 @@
             </button>
         </div>
     </form>
-</div>
+</section>

@@ -2,6 +2,12 @@
 <html lang="pt-BR">
   <head>
     <meta charset="utf-8" />
+    <script>
+      try {
+        const theme = localStorage.getItem("saberti-theme");
+        if (theme === "light" || theme === "dark") document.documentElement.setAttribute("data-bs-theme", theme);
+      } catch (_) {}
+    </script>
     <script type="module" src="/assets/js/authGuard.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>SaberTI</title>
@@ -43,12 +49,26 @@
             <span class="sidebar-label">Usuários</span>
           </a>
         </nav>
+
+        <div class="sidebar-footer">
+          <div class="sidebar-user" aria-label="Usuário conectado">
+            <span class="sidebar-user-avatar" id="sidebar-user-avatar" aria-hidden="true">U</span>
+            <div class="sidebar-label sidebar-user-details">
+              <span class="sidebar-user-name" id="sidebar-user-name">Carregando...</span>
+              <span class="sidebar-user-role" id="sidebar-user-role"></span>
+            </div>
+          </div>
+          <button class="sidebar-logout" id="logout-button" type="button" aria-label="Sair da conta">
+            <i class="bi bi-box-arrow-right" aria-hidden="true"></i>
+            <span class="sidebar-label">Sair</span>
+          </button>
+        </div>
       </aside>
 
       <div class="app-main">
         <header class="app-header">
           <button
-            class="btn btn-light sidebar-trigger"
+            class="btn btn-outline-secondary sidebar-trigger"
             id="sidebar-trigger"
             type="button"
             aria-label="Recolher menu lateral"
@@ -58,9 +78,19 @@
             <i class="fa-solid fa-bars" aria-hidden="true"></i>
           </button>
           <h1 class="h4 mb-0 fw-semibold" id="page-title">Início</h1>
+          <button
+            class="btn theme-toggle ms-auto"
+            id="theme-toggle"
+            type="button"
+            role="switch"
+            aria-checked="false"
+            aria-label="Ativar modo escuro"
+          >
+            <i class="bi bi-sun-fill" id="theme-toggle-icon" aria-hidden="true"></i>
+          </button>
         </header>
 
-        <main class="app-view bg-body-tertiary rounded-4 shadow p-4" id="viewContent" tabindex="-1" aria-live="polite"></main>
+        <main class="app-view" id="viewContent" tabindex="-1" aria-live="polite"></main>
       </div>
     </div>
 

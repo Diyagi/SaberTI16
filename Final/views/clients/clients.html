@@ -2,13 +2,12 @@
     <div class="view-toolbar">
         <div>
             <p class="view-kicker">Cadastros</p>
-            <h2 class="view-title">Categorias</h2>
-            <p class="view-subtitle">Organize os produtos por categoria.</p>
+            <h2 class="view-title">Clientes</h2>
+            <p class="view-subtitle">Mantenha os dados de contato atualizados.</p>
         </div>
-
-        <button class="btn btn-primary" onclick="window.location.href='/menu/categories/add';">
+        <button class="btn btn-primary" onclick="window.location.href='/menu/clients/add';">
             <i class="bi bi-plus-lg"></i>
-            Nova Categoria
+            Novo Cliente
         </button>
     </div>
 
@@ -17,13 +16,15 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Descrição</th>
+                    <th>Nome</th>
+                    <th>CPF/CNPJ</th>
+                    <th>Tipo</th>
+                    <th>Telefone</th>
+                    <th>Email</th>
                     <th class="text-end">Ações</th>
                 </tr>
             </thead>
-
-            <tbody id="catTableBody">
-            </tbody>
+            <tbody id="clientTableBody"></tbody>
         </table>
     </div>
 </section>

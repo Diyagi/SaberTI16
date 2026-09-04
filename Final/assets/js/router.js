@@ -3,11 +3,15 @@ const routes = {
     categories: { path: "categories", html: "./views/categories/categories.html", js: "./pages/categories/categories.js" },
     categoriesedit: { path: "categories/edit", html: "./views/categories/categoryForm.html", js: "./pages/categories/categoryForm.js" },
     categoriesadd: { path: "categories/add", html: "./views/categories/categoryForm.html", js: "./pages/categories/categoryForm.js" },
-    products: { path: "products", html: "./views/products.html", js: "./pages/products.js" },
+    products: { path: "products", html: "./views/products/products.html", js: "./pages/products/products.js" },
+    productsedit: { path: "products/edit", html: "./views/products/productForm.html", js: "./pages/products/productForm.js" },
+    productsadd: { path: "products/add", html: "./views/products/productForm.html", js: "./pages/products/productForm.js" },
     users: { path: "users", html: "./views/users/users.html", js: "./pages/users/users.js" },
     useredit: { path: "users/edit", html: "./views/users/userForm.html", js: "./pages/users/userForm.js" },
     useradd: { path: "users/add", html: "./views/users/userForm.html", js: "./pages/users/userForm.js" },
-    clients: { path: "clients", html: "./views/clients.html", js: "./pages/clients.js" }
+    clients: { path: "clients", html: "./views/clients/clients.html", js: "./pages/clients/clients.js" },
+    clientsedit: { path: "clients/edit", html: "./views/clients/clientForm.html", js: "./pages/clients/clientForm.js" },
+    clientsadd: { path: "clients/add", html: "./views/clients/clientForm.html", js: "./pages/clients/clientForm.js" }
 };
 
 const DEFAULT_ROUTE = "quotes";
@@ -75,6 +79,7 @@ export async function navigate(route, { query = {}, replace = false, updateHisto
     }
 
     app.setAttribute("aria-busy", "true");
+    app.classList.add("is-loading");
 
     try {
         const response = await fetch(getViewUrl(config.html));
@@ -98,8 +103,18 @@ export async function navigate(route, { query = {}, replace = false, updateHisto
         console.error(error);
         if (currentNavigation === navigationId) showRouteError();
     } finally {
-        if (currentNavigation === navigationId) app.removeAttribute("aria-busy");
+        if (currentNavigation === navigationId) {
+            app.removeAttribute("aria-busy");
+            app.classList.remove("is-loading");
+        }
     }
+}
+
+export function reloadCurrentView() {
+    const route = getRouteFromLocation() || DEFAULT_ROUTE;
+    const query = Object.fromEntries(new URLSearchParams(window.location.search));
+
+    return navigate(route, { query, updateHistory: false });
 }
 
 export function initRouter() {

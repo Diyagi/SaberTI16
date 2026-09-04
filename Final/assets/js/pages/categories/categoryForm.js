@@ -1,151 +1,102 @@
 import * as dbCategory from "../../soupabase/category.js";
+import * as formFeedback from "../../../../components/formFeedback.js";
 
 let editMode = false;
-let catData;
-
-let catForm;
-let descInput;
-let submitBtn;
+let categoryData;
+let form;
+let descriptionInput;
+let submitButton;
 
 export async function init() {
-	const currentPath = window.location.pathname;
-	editMode = currentPath.includes("categories/edit");
-	catForm = document.querySelector("#categoryForm");
-	submitBtn = catForm.querySelector('button[type="submit"]');
-	descInput = document.querySelector("#categoryDesc");
-    
-	catForm.addEventListener("submit", onFormSubmit);
-    
-	if (editMode) {
-		await loadCategoryData();
-		submitBtn.innerHTML = `<i class="bi bi-check-lg"></i> Salvar Alterações`
-	} else {
-		submitBtn.innerHTML = `<i class="bi bi-check-lg"></i> Criar Categoria`
-	}
+    editMode = window.location.pathname.includes("categories/edit");
+    form = document.querySelector("#categoryForm");
+    descriptionInput = document.querySelector("#categoryDesc");
+    submitButton = form.querySelector('button[type="submit"]');
+
+    form.addEventListener("submit", onSubmit);
+    descriptionInput.addEventListener("input", () => validateField(checkDescription));
+
+    if (editMode) {
+        await loadCategory();
+        submitButton.innerHTML = '<i class="bi bi-check-lg"></i> Salvar Alterações';
+    } else {
+        submitButton.innerHTML = '<i class="bi bi-check-lg"></i> Criar Categoria';
+    }
+
+    validateForm();
 }
 
-async function loadCategoryData() {
-	const queryString = window.location.search;
-	const urlParams = new URLSearchParams(queryString);
-	const catId = urlParams.get("catId");
-
-	const { data, error } = await dbCategory.getCategory(catId);
-	catData = data;
-
-	const catIdText = document.querySelector("#categoryId");
-
-	catIdText.textContent = `ID da Categoria: ${data.id}`;
-	descInput.value = data.description;
-}
-
-async function onFormSubmit(event) {
-	event.preventDefault();
-
-	const descValue = descInput.value.trim();
-
-	if (!descValue) {
-		setInvalid(descInput, "Descrição não pode estar vazia.");
-		return;
-	}
-
-	const submitBtnInner = submitBtn.innerHTML;
-	submitBtn.disabled = true;
-	submitBtn.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-      Processando...`;
-
-	clearValidation(descInput);
-
-    let submitSuccess;
-
-	if (editMode) {
-		submitSuccess = await submitEdit();
-	} else {
-		submitSuccess = await submitAdd();
-	}
-
-	if (submitSuccess) {
-		window.location.href = "/menu/categories";
+async function loadCategory() {
+    const categoryId = new URLSearchParams(window.location.search).get("catId");
+    if (!categoryId) {
+        formFeedback.showMessage("danger", "Categoria não encontrada.");
         return;
-	}
+    }
 
-	submitBtn.innerHTML = submitBtnInner;
-	submitBtn.disabled = false;
+    const { data, error } = await dbCategory.getCategory(categoryId);
+    if (error || !data) {
+        console.error(error);
+        formFeedback.showMessage("danger", "Não foi possível carregar a categoria.");
+        return;
+    }
+
+    categoryData = data;
+    document.querySelector("#categoryId").textContent = `ID da Categoria: ${data.id}`;
+    descriptionInput.value = data.description ?? "";
 }
 
-async function submitAdd() {
-	const descValue = descInput.value.trim();
+async function onSubmit(event) {
+    event.preventDefault();
+    formFeedback.clearAllValidations(form);
+    document.querySelector("#formMessage").innerHTML = "";
 
-	const { data, error } = await dbCategory.createCategory({
-		description: descValue,
-	});
+    if (!validateForm(true)) return;
 
-	if (error) {
-		console.log(error);
-		showMessage(
-			"danger",
-			error.message || "Não foi possível criar a categoria.",
-		);
-		return false;
-	}
+    const buttonContent = submitButton.innerHTML;
+    submitButton.disabled = true;
+    submitButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Processando...';
 
-	return true;
+    const { error } = editMode
+        ? await dbCategory.updateCategory(categoryData.id, { description: descriptionInput.value.trim() })
+        : await dbCategory.createCategory({ description: descriptionInput.value.trim() });
+
+    if (!error) {
+        window.location.href = "/menu/categories";
+        return;
+    }
+
+    console.error(error);
+    formFeedback.showMessage("danger", error.message || "Não foi possível salvar a categoria.");
+    submitButton.innerHTML = buttonContent;
+    validateForm();
 }
 
-async function submitEdit() {
-	const descValue = descInput.value.trim();
+function validateForm(showErrors = false) {
+    const isValid = checkDescription(showErrors);
 
-	const { data, error } = await dbCategory.updateCategory(catData.id, {
-		description: descValue,
-	});
-
-	if (error) {
-		console.log(error);
-		showMessage(
-			"danger",
-			error.message || "Não foi possível editar a categoria.",
-		);
-		return false;
-	}
-
-	return true;
+    submitButton.disabled = !isValid || (editMode && !categoryData);
+    return !submitButton.disabled;
 }
 
-function setInvalid(element, message) {
-	clearValidation(element);
-
-	element.classList.add("is-invalid");
-
-	const feedback = document.createElement("div");
-	feedback.className = "invalid-feedback";
-	feedback.textContent = message;
-
-	element.parentElement.appendChild(feedback);
+function validateField(validation) {
+    validation(true);
+    updateSubmitState();
 }
 
-function clearValidation(element) {
-	element.classList.remove("is-invalid", "is-valid", "is-loading");
-
-	const feedback = element.parentElement.querySelector(
-		".invalid-feedback, .valid-feedback",
-	);
-
-	if (feedback) {
-		feedback.remove();
-	}
+function updateSubmitState() {
+    const isValid = Boolean(descriptionInput.value.trim());
+    submitButton.disabled = !isValid || (editMode && !categoryData);
 }
 
-function showMessage(type, message) {
-	const formMessage = document.querySelector("#formMessage");
+function checkDescription(showErrors) {
+    formFeedback.clearValidation(descriptionInput);
+    const isValid = Boolean(descriptionInput.value.trim());
 
-	formMessage.innerHTML = `
-        <div class="alert alert-${type} alert-dismissible fade show" role="alert">
-            ${message}
-            <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="alert"
-                aria-label="Fechar"
-            ></button>
-        </div>
-    `;
+    if (!isValid) {
+        if (showErrors) formFeedback.setInvalid(descriptionInput, "Informe a descrição da categoria.");
+        return false;
+    }
+
+    formFeedback.setValid(descriptionInput);
+    return true;
 }

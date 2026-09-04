@@ -34,9 +34,11 @@ export function confirmModal({
 		}
 
 		try {
-			await onConfirm?.();
+			const shouldClose = await onConfirm?.();
 
-			bootstrap.Modal.getInstance(modalElement).hide();
+			if (shouldClose !== false) {
+				bootstrap.Modal.getInstance(modalElement).hide();
+			}
 		} finally {
 			confirmButton.innerHTML = confirmBtnInner;
 			confirmButton.disabled = false;
@@ -44,4 +46,14 @@ export function confirmModal({
 	};
 
 	bootstrap.Modal.getOrCreateInstance(modalElement).show();
+}
+
+export function showConfirmationError(message) {
+	const messageElement = document.getElementById("confirmationModalMessage");
+	messageElement.querySelector(".confirmation-error")?.remove();
+
+	messageElement.insertAdjacentHTML(
+		"beforeend",
+		`<div class="alert alert-danger mt-3 mb-0 confirmation-error" role="alert">${message}</div>`
+	);
 }

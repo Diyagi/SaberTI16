@@ -2,13 +2,12 @@
     <div class="view-toolbar">
         <div>
             <p class="view-kicker">Cadastros</p>
-            <h2 class="view-title">Categorias</h2>
-            <p class="view-subtitle">Organize os produtos por categoria.</p>
+            <h2 class="view-title">Produtos</h2>
+            <p class="view-subtitle">Gerencie o catálogo e a disponibilidade.</p>
         </div>
-
-        <button class="btn btn-primary" onclick="window.location.href='/menu/categories/add';">
+        <button class="btn btn-primary" onclick="window.location.href='/menu/products/add';">
             <i class="bi bi-plus-lg"></i>
-            Nova Categoria
+            Novo Produto
         </button>
     </div>
 
@@ -18,12 +17,15 @@
                 <tr>
                     <th>ID</th>
                     <th>Descrição</th>
+                    <th>Categoria</th>
+                    <th>Preço</th>
+                    <th>Status</th>
+                    <th>Observação</th>
+                    <th>Criado em</th>
                     <th class="text-end">Ações</th>
                 </tr>
             </thead>
-
-            <tbody id="catTableBody">
-            </tbody>
+            <tbody id="productTableBody"></tbody>
         </table>
     </div>
 </section>

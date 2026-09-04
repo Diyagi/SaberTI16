@@ -17,6 +17,9 @@ let rePasswordInput;
 
 let lastVerifiedEmail = null;
 let lastVerifiedUsername = null;
+let emailValidationTimer;
+let usernameValidationTimer;
+let fieldValidity;
 
 export async function init() {
     const currentPath = window.location.pathname;
@@ -25,6 +28,7 @@ export async function init() {
     submitBtn = userForm.querySelector('button[type="submit"]');
     lastVerifiedEmail = null;
     lastVerifiedUsername = null;
+    fieldValidity = { email: false, username: false, fullname: false, role: false, password: false };
     submitBtn.disabled = true;
     
     emailInput = document.querySelector("#email");
@@ -37,13 +41,12 @@ export async function init() {
     passwordInput.required = !editMode;
     rePasswordInput.required = !editMode;
     
-    emailInput.addEventListener('blur', validateForm);
-    usernameInput.addEventListener('blur', validateForm);
-    fullnameInput.addEventListener('blur', validateForm);
-    roleSelect.addEventListener('blur', validateForm);
-    passwordInput.addEventListener('blur', validateForm);
-    rePasswordInput.addEventListener('blur', validateForm);
-    roleSelect.addEventListener('change', validateForm);
+    emailInput.addEventListener('input', () => scheduleAvailabilityValidation('email', checkEmailAva));
+    usernameInput.addEventListener('input', () => scheduleAvailabilityValidation('username', checkUsernameAva));
+    fullnameInput.addEventListener('input', () => validateField('fullname', checkFullname));
+    roleSelect.addEventListener('change', () => validateField('role', checkRole));
+    passwordInput.addEventListener('input', () => validateField('password', checkPassword));
+    rePasswordInput.addEventListener('input', () => validateField('password', checkPassword));
     
     userForm.addEventListener("submit", onFormSubmit);
     
@@ -65,6 +68,15 @@ async function loadUserData() {
     const userId = urlParams.get("userId");
     
     const { data, error } = await dbUser.getUser(userId);
+    if (error || !data?.user) {
+        console.error(error);
+        formFeedback.showMessage(
+            'danger',
+            error?.message || 'Não foi possível carregar o usuário.'
+        );
+        return;
+    }
+
     userData = {...data.user};
     
     userIdText.textContent = `ID do Usuario: ${userData.id}`;
@@ -86,16 +98,6 @@ async function onFormSubmit(event) {
         return;
     }
     
-    if (!userForm.checkValidity()) {
-        event.stopPropagation();
-        
-        userForm.querySelectorAll(':invalid').forEach((element) => {
-            element.classList.add('is-invalid');
-        });
-        
-        return;
-    }
-    
     const newUser = {
         email: emailInput.value.trim(),
         username: usernameInput.value.trim(),
@@ -107,61 +109,25 @@ async function onFormSubmit(event) {
         newUser.password = passwordInput.value;
 
     submitBtn.disabled = true;
+	submitBtn.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      Processando...`;
     
-    let submitSuccess = false;
-    if (editMode)
-        submitSuccess = await submitEdit(newUser);
-    else
-        submitSuccess = await submitAdd(newUser);
-    
-    if (submitSuccess) {
+    const { error } = editMode
+        ? await dbUser.updateUser(userData.id, newUser)
+        : await dbUser.createUser(newUser);
+
+    if (!error) {
         window.location.href = '/menu/users';
         return;
     }
-    
+
+    console.error(error);
+    formFeedback.showMessage(
+        'danger',
+        error?.message || 'Não foi possível salvar o usuário.'
+    );
     submitBtn.innerHTML = submitBtnInner;
-}
-
-async function submitAdd(newUser) {
-    const { data, error } = await dbUser.createUser(newUser);
-    
-    if (error) {
-        console.error(error);
-        
-        formFeedback.showMessage(
-            'danger',
-            error.message || 'Não foi possível criar o usuário.'
-        );
-        
-        return false;
-    }
-    
-    if (data) {
-        return true;
-    }
-    
-    return false;
-}
-
-async function submitEdit(newUser) {
-    const { data, error } = await dbUser.updateUser(userData.id, newUser);
-    
-    if (error) {
-        console.error(error);
-        
-        formFeedback.showMessage(
-            'danger',
-            error.message || 'Não foi possível criar o usuário.'
-        );
-        
-        return false;
-    }
-    
-    if (data) {
-        return true;
-    }
-    
-    return false;
+    await validateForm();
 }
 
 
@@ -175,16 +141,40 @@ async function validateForm() {
     const fullnameIsValid = checkFullname();
     const roleIsValid = checkRole();
     const passwordIsValid = checkPassword();
-    const formIsValid = [
-        emailIsValid,
-        usernameIsValid,
-        fullnameIsValid,
-        roleIsValid,
-        passwordIsValid,
-    ].every(Boolean);
+    fieldValidity = {
+        email: emailIsValid,
+        username: usernameIsValid,
+        fullname: fullnameIsValid,
+        role: roleIsValid,
+        password: passwordIsValid
+    };
+    updateSubmitState();
+    return !submitBtn.disabled;
+}
 
-    submitBtn.disabled = !formIsValid;
-    return formIsValid;
+async function validateField(field, validator) {
+    fieldValidity[field] = await validator();
+    updateSubmitState();
+}
+
+function scheduleAvailabilityValidation(field, validator) {
+    fieldValidity[field] = false;
+    updateSubmitState();
+
+    const timer = field === 'email' ? emailValidationTimer : usernameValidationTimer;
+    clearTimeout(timer);
+
+    const validationTimer = setTimeout(async () => {
+        fieldValidity[field] = await validator();
+        updateSubmitState();
+    }, 400);
+
+    if (field === 'email') emailValidationTimer = validationTimer;
+    else usernameValidationTimer = validationTimer;
+}
+
+function updateSubmitState() {
+    submitBtn.disabled = !Object.values(fieldValidity).every(Boolean);
 }
 
 function checkPassword() {

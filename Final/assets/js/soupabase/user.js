@@ -14,6 +14,10 @@ export async function authUser(email, password) {
 	});
 }
 
+export async function logoutUser() {
+	return await supabase.auth.signOut();
+}
+
 export async function getLoggedUser() {
 	// Get the authenticated user
 	const {
