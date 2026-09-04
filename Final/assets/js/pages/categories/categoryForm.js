@@ -18,9 +18,9 @@ export async function init() {
     
 	if (editMode) {
 		await loadCategoryData();
-		submitBtn.innerHTML = `<i class="bi bi-check-lg"></i>Salvar Alterações`
+		submitBtn.innerHTML = `<i class="bi bi-check-lg"></i> Salvar Alterações`
 	} else {
-		submitBtn.innerHTML = `<i class="bi bi-check-lg"></i>Criar Categoria`
+		submitBtn.innerHTML = `<i class="bi bi-check-lg"></i> Criar Categoria`
 	}
 }
 

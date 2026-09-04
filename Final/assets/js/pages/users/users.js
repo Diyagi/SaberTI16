@@ -65,6 +65,7 @@ function onTableClick(event) {
 			confirmText: "Deletar",
 			onConfirm: async () => {
 				await dbUser.deleteUser(deleteBtn.dataset.id);
+				loadUsers();
 			},
 		});
 		return;
