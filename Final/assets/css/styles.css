@@ -391,6 +391,166 @@ body {
   min-height: auto;
 }
 
+.quote-filters,
+.quote-items-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.quote-filters {
+  justify-content: flex-end;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem;
+  background: var(--surface-muted);
+}
+
+.quote-row {
+  cursor: pointer;
+}
+
+.quote-row:focus-visible {
+  outline: 0.2rem solid rgb(13 110 253 / 35%);
+  outline-offset: -0.2rem;
+}
+
+.quote-actions .dropdown-menu {
+  min-width: 13rem;
+}
+
+@media (min-width: 992px) {
+  .quote-page .view-card {
+    overflow: visible;
+  }
+}
+
+.quote-form-page {
+  max-width: 82rem;
+}
+
+.quote-picker-trigger span {
+  display: block;
+  overflow: hidden;
+  padding-right: 1rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.quote-items-table .item-description {
+  min-width: 13rem;
+}
+
+.quote-items-table .item-amount {
+  width: 5.5rem;
+}
+
+.quote-items-table .item-value {
+  width: 8.5rem;
+}
+
+.quote-items-table tfoot > tr > * {
+  border-top: 2px solid var(--border-color);
+  background: var(--surface-muted);
+}
+
+.quote-detail-summary {
+  border-block: 1px solid var(--border-color);
+}
+
+.quote-detail-line {
+  padding: 1rem 0.25rem;
+}
+
+.quote-detail-line + .quote-detail-line {
+  border-top: 1px solid var(--border-color);
+}
+
+.quote-detail-section-label {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: var(--text-muted);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.quote-detail-meta-item span {
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.quote-detail-person {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  min-width: 0;
+  gap: 0.5rem;
+}
+
+.quote-detail-person strong {
+  overflow-wrap: anywhere;
+}
+
+.quote-detail-person small {
+  color: var(--text-muted);
+}
+
+.quote-client-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.25rem;
+  margin-top: 0.45rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.quote-client-meta i {
+  margin-right: 0.2rem;
+  color: var(--brand-primary);
+}
+
+.quote-detail-meta {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(8rem, 1fr));
+  gap: 1rem;
+}
+
+.quote-detail-meta-item {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.quote-detail-total strong {
+  color: var(--brand-primary);
+  font-size: 1.1rem;
+}
+
+.sort-button {
+  padding: 0;
+  border: 0;
+  color: inherit;
+  background: transparent;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  white-space: nowrap;
+}
+
+.sort-button:hover,
+.sort-button.active {
+  color: var(--brand-primary);
+}
+
+.product-picker-first > td {
+  box-shadow: inset 0 1px rgb(13 110 253 / 25%), inset 0 -1px rgb(13 110 253 / 25%);
+}
+
 .app-view.is-loading {
   cursor: wait;
 }
@@ -519,5 +679,19 @@ body {
 
   .view-toolbar .btn {
     width: 100%;
+  }
+
+  .quote-filters,
+  .quote-items-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .quote-filters {
+    gap: 0.5rem;
+  }
+
+  .quote-detail-meta {
+    grid-template-columns: repeat(2, minmax(7rem, 1fr));
   }
 }

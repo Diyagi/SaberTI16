@@ -53,7 +53,9 @@ loginForm.addEventListener("submit", async (event) => {
 		showCredentialsError();
 	}
 
-    if (data) {
+	console.log(data)
+
+    if (data.user && data.session) {
         window.location.replace("/menu")
     }
 });

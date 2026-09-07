@@ -15,6 +15,8 @@ const THEME_STORAGE_KEY = "saberti-theme";
 
 const routeTitles = {
   quotes: "Orçamentos",
+  quotesedit: "Editar Orçamento",
+  quotesadd: "Adicionar Orçamento",
   products: "Produtos",
   productsedit: "Editar Produto",
   productsadd: "Adicionar Produto",
